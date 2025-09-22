@@ -16,6 +16,7 @@ public class CountryCodeConverter {
 
     private Map<String, String> countryCodeToCountry = new HashMap<>();
     private Map<String, String> countryToCountryCode = new HashMap<>();
+    private int numeric;
 
     /**
      * Default constructor that loads the country codes from "country-codes.txt"
@@ -28,7 +29,7 @@ public class CountryCodeConverter {
     /**
      * Overloaded constructor that allows us to specify the filename to load the country code data from.
      * @param filename the name of the file in the resources folder to load the data from
-     * @throws RuntimeException if the resources file can't be loaded properly
+     * @throws RuntimeException if the resource file can't be loaded properly
      */
     public CountryCodeConverter(String filename) {
 
@@ -40,7 +41,10 @@ public class CountryCodeConverter {
             iterator.next(); // skip the first line
             while (iterator.hasNext()) {
                 String line = iterator.next();
-                String[] parts = line.split("\t");
+                String[] parts = line.split("//");
+                countryCodeToCountry.put(parts[1], parts[0]);
+                countryToCountryCode.put(parts[0], parts[1]);
+                numeric = Integer.parseInt(parts[3]);
                 // TODO Task B: use parts to populate the instance variables
             }
         }
@@ -57,7 +61,7 @@ public class CountryCodeConverter {
      */
     public String fromCountryCode(String code) {
         // TODO Task B: update this code to use an instance variable to return the correct value
-        return code;
+        return countryCodeToCountry.get(code);
     }
 
     /**
@@ -67,7 +71,7 @@ public class CountryCodeConverter {
      */
     public String fromCountry(String country) {
         // TODO Task B: update this code to use an instance variable to return the correct value
-        return country;
+        return countryToCountryCode.get(country);
     }
 
     /**
@@ -76,6 +80,6 @@ public class CountryCodeConverter {
      */
     public int getNumCountries() {
         // TODO Task B: update this code to use an instance variable to return the correct value
-        return 0;
+        return this.numeric;
     }
 }

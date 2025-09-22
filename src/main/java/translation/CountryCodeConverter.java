@@ -41,9 +41,9 @@ public class CountryCodeConverter {
             iterator.next(); // skip the first line
             while (iterator.hasNext()) {
                 String line = iterator.next();
-                String[] parts = line.split("//");
-                countryCodeToCountry.put(parts[1], parts[0]);
-                countryToCountryCode.put(parts[0], parts[1]);
+                String[] parts = line.split("\t");
+                countryCodeToCountry.put(parts[2], parts[0]);
+                countryToCountryCode.put(parts[0], parts[2]);
                 numeric = Integer.parseInt(parts[3]);
                 // TODO Task B: use parts to populate the instance variables
             }
